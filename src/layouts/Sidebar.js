@@ -15,26 +15,26 @@ class Sidebar extends Component {
     }
 
     render() {
-        const active= { fontWeight: "600", backgroundColor: "#f6f6f6" };
+        const active= { fontWeight: "600", backgroundColor: "#f6f6f6", color: "#007bff" };
         return (
             <div className="bg-light border-right" id="sidebar-wrapper">
                 <div className="sidebar-heading">
-                <h5 className="text-uppercase mt-1">
-                    <span>Web Admin</span>
-                </h5>
+                <h6 className="mt-1">
+                    <span>Company name</span>
+                </h6>
                 </div>
                 <div className="list-group">
-                    <Link className="list-group-item list-group-item-action border-0" to="/dashboard"
+                    <Link className="list-group-item list-group-item-action border-bottom-0" to="/dashboard"
                         style={this.state.active === "dashboard" ? active : {}} 
                         onClick={this._handleClick.bind(this, 'dashboard')}
                         ><FontAwesomeIcon icon={faHome} />  Dashboard
                     </Link>
-                    <Link className="list-group-item list-group-item-action border-0" to="/users"
+                    <Link className="list-group-item list-group-item-action border-bottom-0" to="/users"
                         style={this.state.active === "users" ? active : {}} 
                         onClick={this._handleClick.bind(this, 'users')}>
                         <FontAwesomeIcon icon={faUsers} />  Users
                     </Link>
-                    <Link className="list-group-item list-group-item-action border-0" to="/setting"
+                    <Link className="list-group-item list-group-item-action border-bottom-0" to="/setting"
                          style={this.state.active === "setting" ? active : {}} 
                          onClick={this._handleClick.bind(this, 'setting')}>
                         <FontAwesomeIcon icon={faCog} />  Setting
