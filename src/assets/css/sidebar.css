@@ -22,9 +22,10 @@
   width: 15rem;
 }
 
-#sidebar-wrapper .list-group-item:hover {
+#sidebar-wrapper .list-group-item-custom:hover {
     font-weight: 600;
     color: #007bff;
+    cursor: pointer;
 }
 
 #page-content-wrapper {

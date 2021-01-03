@@ -1,21 +1,38 @@
 import React, { Component } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faUsers, faCog } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom"; 
+import Menu from "./Menu";
 
 class Sidebar extends Component {
 
     constructor(props){
         super(props);
-        this.state = {active: 'dashboard'};
+        let pathname = window.location.pathname.split('/')[1];
+        pathname = pathname.charAt(0).toUpperCase() + pathname.slice(1);
+        this.state = { 
+            active: pathname,
+            tabs: [
+                { page: "Dashboard", icon: faHome},
+                { page: "Users", icon: faUsers},
+                { page: "Setting", icon: faCog}
+            ]
+        };
+        this.clickMenu = this.clickMenu.bind(this);
     }
 
-    _handleClick(menuItem) { 
+    clickMenu(menuItem) { 
         this.setState({ active: menuItem });
     }
 
+    renderMenu() {
+        return (
+            this.state.tabs.length > 0 &&
+            this.state.tabs.map(v => (
+                <Menu key={v.page} page={v.page} active={this.state.active} onClickMenu={this.clickMenu} icon={v.icon}/>
+            ))
+        );
+    }
+
     render() {
-        const active= { fontWeight: "600", backgroundColor: "#f6f6f6", color: "#007bff" };
         return (
             <div className="bg-light border-right" id="sidebar-wrapper">
                 <div className="sidebar-heading">
@@ -24,21 +41,7 @@ class Sidebar extends Component {
                 </h6>
                 </div>
                 <div className="list-group">
-                    <Link className="list-group-item list-group-item-action border-bottom-0" to="/dashboard"
-                        style={this.state.active === "dashboard" ? active : {}} 
-                        onClick={this._handleClick.bind(this, 'dashboard')}
-                        ><FontAwesomeIcon icon={faHome} />  Dashboard
-                    </Link>
-                    <Link className="list-group-item list-group-item-action border-bottom-0" to="/users"
-                        style={this.state.active === "users" ? active : {}} 
-                        onClick={this._handleClick.bind(this, 'users')}>
-                        <FontAwesomeIcon icon={faUsers} />  Users
-                    </Link>
-                    <Link className="list-group-item list-group-item-action border-bottom-0" to="/setting"
-                         style={this.state.active === "setting" ? active : {}} 
-                         onClick={this._handleClick.bind(this, 'setting')}>
-                        <FontAwesomeIcon icon={faCog} />  Setting
-                    </Link>
+                    {this.renderMenu()}
                 </div>
             </div>
         )
